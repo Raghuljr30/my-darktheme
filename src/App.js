@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter,  Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import Quest from './Quest';
+import "./App.css"
+
+// const themeState = useState(localStorage.getItem('theme') || 'light');
 
 function App() {
+  // const [theme, setTheme] = themeState;
+
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.body.className = `theme-${theme}`;
+  }, [theme]);
+
+  const handleThemeChange = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`theme-${theme}`}>
+      <button onClick={handleThemeChange}>Change Theme</button>
+
+      <BrowserRouter>
+        <React.Fragment>
+        <Routes>
+          {/* <Route exact path="/home" component={Home} /> */}
+          <Route path='/home' element={<Home/>}/>
+          <Route path='/quest' element={<Quest/>}/>
+          </Routes>
+        </React.Fragment>
+      </BrowserRouter>
     </div>
   );
 }
-
 export default App;
