@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter,  Routes, Route } from 'react-router-dom';
+import { BsFillSunFill } from "react-icons/bs";
+import { BsSun } from "react-icons/bs";
 import Home from './Home';
 import Quest from './Quest';
 import "./App.css"
@@ -21,7 +23,9 @@ function App() {
 
   return (
     <div className={`theme-${theme}`}>
-      <button onClick={handleThemeChange}>Change Theme</button>
+      
+      {theme==='light' ? <button onClick={handleThemeChange} ><BsSun/></button>:<button onClick={handleThemeChange} ><BsFillSunFill/></button> }
+      
 
       <BrowserRouter>
         <React.Fragment>
